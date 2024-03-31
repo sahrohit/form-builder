@@ -2,8 +2,8 @@ name: API
 on:
   push:
     branches: [main]
-    paths:
-      - api/**
+    # paths:
+    #   - api/**
 
 defaults:
   run:
@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   build:
-    name: Lint and Typecheck
+    name: Lint and Build API
 
     runs-on: ${{ matrix.os }}
     strategy:

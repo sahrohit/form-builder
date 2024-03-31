@@ -2,8 +2,8 @@ name: Frontend
 on:
   push:
     branches: [main]
-    paths:
-      - frontend/**
+    # paths:
+    #   - frontend/**
 
 defaults:
   run:
@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   build:
-    name: Lint and Typecheck
+    name: Lint and Typecheck Frontend
 
     runs-on: ${{ matrix.os }}
     strategy:
