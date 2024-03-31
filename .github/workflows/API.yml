@@ -5,6 +5,10 @@ on:
     paths:
       - api/**
 
+defaults:
+  run:
+    working-directory: ./api
+
 jobs:
   build:
     name: Lint and Typecheck
@@ -14,9 +18,6 @@ jobs:
       matrix:
         node: [18.x, 20.x]
         os: [ubuntu-latest]
-    defaults:
-      run:
-        working-directory: ./api
 
     steps:
       - name: Checkout repo

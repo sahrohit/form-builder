@@ -5,6 +5,10 @@ on:
     paths:
       - frontend/**
 
+defaults:
+  run:
+    working-directory: ./frontend
+
 jobs:
   build:
     name: Lint and Typecheck
@@ -14,9 +18,6 @@ jobs:
       matrix:
         node: [18.x, 20.x]
         os: [ubuntu-latest]
-    defaults:
-      run:
-        working-directory: ./frontend
 
     steps:
       - name: Checkout repo
