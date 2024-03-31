@@ -196,7 +196,9 @@ const CreateForm = ({
 
 				<FormPublish formId={formId} open={publishOpen} onOpenChange={setPublishOpen} />
 
-				<Button type="submit">{initialValues ? "Update Form" : "Create Form"}</Button>
+				<Button className="w-full" type="submit">
+					{initialValues ? "Update Form" : "Create Form"}
+				</Button>
 			</form>
 		</Form>
 	);

@@ -1,7 +1,13 @@
+import { getUser } from "@/actions/getUser";
+import AuthModal from "@/components/modals/auth-modal";
+import { buttonVariants } from "@/components/ui/button";
 import Header from "@/components/ui/header";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const Home = async () => {
+	const session = await getUser();
+
 	return (
 		<>
 			<Header />
@@ -17,6 +23,13 @@ export default function Home() {
 						Generate, publish and share your form right away. Dive into insightful results,
 						charts and analytics.
 					</p>
+					{session?.user?.id ? (
+						<Link href="/forms/create" className={buttonVariants({ variant: "default" })}>
+							Create New Form
+						</Link>
+					) : (
+						<AuthModal />
+					)}
 					<div className="w-full bg-gradient-to-b from-transparent to-white h-24"></div>
 				</section>
 				<section
@@ -76,4 +89,6 @@ export default function Home() {
 			</main>
 		</>
 	);
-}
+};
+
+export default Home;

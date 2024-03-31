@@ -1,4 +1,11 @@
-import { ChangeEvent } from "react";
+import {
+	AwaitedReactNode,
+	ChangeEvent,
+	JSXElementConstructor,
+	ReactElement,
+	ReactNode,
+	ReactPortal,
+} from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
 	Select,
@@ -30,12 +37,14 @@ const FormField = ({ element, value, onChange }: Props) => {
 		Input: () => <Input type="text" onChange={onChange} />,
 		Switch: () => (
 			<Switch
-				checked={!!(element.fieldOptions.find(o => o.id == value)?.value === "yes")}
+				checked={
+					!!(element.fieldOptions.find((o: { id: string }) => o.id == value)?.value === "yes")
+				}
 				onCheckedChange={val =>
 					onChange(
 						val
-							? element.fieldOptions.find(o => o.value == "yes")?.id
-							: element.fieldOptions.find(o => o.value == "no")?.id
+							? element.fieldOptions.find((o: { value: string }) => o.value == "yes")?.id
+							: element.fieldOptions.find((o: { value: string }) => o.value == "no")?.id
 					)
 				}
 			/>
@@ -47,35 +56,71 @@ const FormField = ({ element, value, onChange }: Props) => {
 				<SelectTrigger>
 					<SelectValue>
 						{value
-							? element.fieldOptions.find(option => option.id.replace("answer_", "") == value)
-									?.text
+							? element.fieldOptions.find(
+									(option: { id: string }) => option.id.replace("answer_", "") == value
+								)?.text
 							: "Select an option"}
 					</SelectValue>
 				</SelectTrigger>
 				<SelectContent>
-					{element.fieldOptions.map((option, _index) => (
-						<SelectItem key={`${option.text} ${option.value}`} value={`answerId_${option.id}`}>
-							{option.text}
-						</SelectItem>
-					))}
+					{element.fieldOptions.map(
+						(
+							option: {
+								text:
+									| string
+									| number
+									| boolean
+									| ReactElement<any, string | JSXElementConstructor<any>>
+									| Iterable<ReactNode>
+									| ReactPortal
+									| Promise<AwaitedReactNode>
+									| null
+									| undefined;
+								value: any;
+								id: any;
+							},
+							_index: any
+						) => (
+							<SelectItem key={`${option.text} ${option.value}`} value={`answerId_${option.id}`}>
+								{option.text}
+							</SelectItem>
+						)
+					)}
 				</SelectContent>
 			</Select>
 		),
 		RadioGroup: () => (
 			<RadioGroup onValueChange={onChange}>
-				{element.fieldOptions.map((option, _index) => (
-					<div key={`${option.text} ${option.value}`} className="flex items-center space-x-2">
-						<FormControl>
-							<RadioGroupItem
-								value={`answerId_${option.id}`}
-								id={option?.value?.toString() || `answerId_${option.id}`}
-							>
-								{option.text}
-							</RadioGroupItem>
-						</FormControl>
-						<Label className="text-base">{option.text}</Label>
-					</div>
-				))}
+				{element.fieldOptions.map(
+					(
+						option: {
+							text:
+								| string
+								| number
+								| boolean
+								| ReactElement<any, string | JSXElementConstructor<any>>
+								| Iterable<ReactNode>
+								| Promise<AwaitedReactNode>
+								| null
+								| undefined;
+							value: { toString: () => any };
+							id: any;
+						},
+						_index: any
+					) => (
+						<div key={`${option.text} ${option.value}`} className="flex items-center space-x-2">
+							<FormControl>
+								<RadioGroupItem
+									value={`answerId_${option.id}`}
+									id={option?.value?.toString() || `answerId_${option.id}`}
+								>
+									{option.text}
+								</RadioGroupItem>
+							</FormControl>
+							<Label className="text-base">{option.text}</Label>
+						</div>
+					)
+				)}
 			</RadioGroup>
 		),
 	};

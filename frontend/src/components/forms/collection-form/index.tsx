@@ -21,6 +21,9 @@ type QuestionWithOptionsModel = QuestionSelectModel & {
 };
 
 interface Form extends FormSelectModel {
+	id: string;
+	name: string;
+	description: string;
 	questions: Array<QuestionWithOptionsModel>;
 }
 

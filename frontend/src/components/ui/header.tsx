@@ -2,19 +2,9 @@ import { Button } from "./button";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import LoginForm from "../forms/login-form";
-import RegisterForm from "../forms/register-form";
 
 import { Dancing_Script } from "next/font/google";
+import AuthModal from "../modals/auth-modal";
 
 const ds = Dancing_Script({ subsets: ["latin"] });
 
@@ -65,31 +55,7 @@ const Header = async () => {
 								<SignOut />
 							</div>
 						) : (
-							<Dialog>
-								<DialogTrigger asChild>
-									<Button>Login</Button>
-								</DialogTrigger>
-								<DialogContent className="sm:max-w-[425px]">
-									<DialogHeader>
-										<DialogTitle>Auth</DialogTitle>
-										<DialogDescription>
-											Get Started by either Loggin in or Signing Up
-										</DialogDescription>
-									</DialogHeader>
-									<Tabs defaultValue="login">
-										<TabsList className="grid w-full grid-cols-2">
-											<TabsTrigger value="login">Login</TabsTrigger>
-											<TabsTrigger value="register">Register</TabsTrigger>
-										</TabsList>
-										<TabsContent value="login">
-											<LoginForm />
-										</TabsContent>
-										<TabsContent value="register">
-											<RegisterForm />
-										</TabsContent>
-									</Tabs>
-								</DialogContent>
-							</Dialog>
+							<AuthModal />
 						)}
 					</div>
 				</div>
