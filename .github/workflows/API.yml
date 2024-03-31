@@ -5,10 +5,6 @@ on:
     # paths:
     #   - api/**
 
-defaults:
-  run:
-    working-directory: ./api
-
 jobs:
   build:
     name: Lint and Build API
@@ -19,39 +15,38 @@ jobs:
         node: [18.x, 20.x]
         os: [ubuntu-latest]
 
+    defaults:
+      run:
+        working-directory: ./api
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - name: Use Node ${{ runner.node }}
-        uses: actions/setup-node@v3
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ runner.node }}
-          cache: "pnpm"
+          node-version: ${{ matrix.node }}
+        #   cache: "pnpm"
+        #   cache-dependency-path: api/package-lock.json
 
       - name: Install deps (with cache)
-        run: |
-          cd api
-          pnpm install
+        run: pnpm install
 
       - name: Node.js cache
         uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/build
-          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-nextjs
+          key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-nodejs
 
       - name: Lint
-        run: |
-          cd api
-          pnpm lint
+        run: pnpm lint
 
       - name: Build
-        run: |
-          cd api
-          pnpm build
+        run: pnpm build

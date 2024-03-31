@@ -1,12 +1,10 @@
-<!-- PROJECT LOGO -->
-<br />
 <div align="center">
 
-  <h3 align="center">Form Builder</h3>
+<h3 align="center">Form Builder</h3>
 
-  <p align="center">
+<p align="center">
 Create and Manage forms easily
-    <br />
+</p>
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
@@ -15,7 +13,63 @@ Create and Manage forms easily
 
 ## About The Project
 
-Form Builder is a very small project built as a submission to the [test](/Challenge.pdf) submitted by techminius
+Form Builder is a very small project built as a **submission** to the [test](/Challenge.pdf) submitted by techminius.
+
+### Frontend
+
+The frontend of the application is entirely built on Nextjs with it new app router and server components. Most of the components are server-rendered acheiveing super fast and dynamic pages (considering the best format for communication between server and client in html rather than json).
+
+The component library of choice is shadcn/ui providing enough customizability, and react-hook-form is used for form management.
+
+```
+frontend
+└── src/
+    ├── actions # All Reusable Server Actions
+    ├── app/
+    │   ├── (admin) # Admin Pages
+    │   ├── (marketing) # Marketing Pages - including Landing Pages
+    │   └── forms # Forms - create,edit or submit
+    ├── components/
+    │   ├── cards # Reusable cards across the app
+    │   ├── forms # All the forms used in the app
+    │   ├── modals # Modals used in the app - auth etc.
+    │   ├── navigation # Navbar Component
+    │   └── ui # Reusable UI component - mostly shadcn
+    ├── lib
+    ├── styles
+    └── types
+```
+
+### API
+
+The API is built with expressjs following the REST standard also considering CORS, Rate Limiting and proper error handling.
+
+The database used is MySQL (as specified in the [test](/Challenge.pdf)), PostgreSQL would have been my choice of database. `Drizzle ORM` is used as ORM on top of `mysql2` driver for safe queries to the database.
+
+```
+api
+└── src/
+    ├── controllers # Core application logic - controllers
+    ├── middlewares # middlewares including - auth etc
+    ├── routes # Routes declarations
+    ├── schema # Schema declarations including drizzle schemas
+    ├── services # Reusable services
+    ├── utils/
+    │   ├── ...
+    │   ├── db.ts # DB Connection, Schema & Migration config
+    │   ├── jwt.ts # Generate or Verify JWT tokens
+    │   └── ...
+    ├── migrate.ts # Script for db migration (used drizzle-kit push:mysql)
+    └── server.ts # Starting Point for the API
+```
+
+### Utilities
+
+Biome.js is used for liniting and fomratting of code, which is a better and alternative as compared to prettier and eslint.
+
+Github Actions is used to do build, typecheck and lint check after each commit.
+
+PNPM is used instead of NPM for better DX.
 
 ## Built With
 
@@ -28,7 +82,12 @@ Form Builder is a very small project built as a submission to the [test](/Challe
 <img src="https://img.icons8.com/color/48/000000/mysql.png" title="MySql" alt="MySql" width="50" height="50" />
 </div>
 
-<!-- GETTING STARTED -->
+## Apps
+
+| Apps     | Description                       |
+| -------- | --------------------------------- |
+| api      | API Server for the infrastructure |
+| frontend | Frontend Nextjs app for end users |
 
 ## Getting Started
 
@@ -44,9 +103,10 @@ To get a local copy up and running follow these simple example steps.
 ### To Initialize The Frontend
 
 1. Open the `frontend` directory.
-    ```sh copy
-        cd frontend
-    ```
+
+   ```sh copy
+   cd frontend
+   ```
 
 1. Install the project dependencies using pnpm (`npm install -g pnpm` if pnpm is not installed)
 
@@ -54,18 +114,19 @@ To get a local copy up and running follow these simple example steps.
    pnpm install
    ```
 
-2. Copy and rename the `env.example` to `env.local` & update you enviroment variables in all the apps.
+1. Copy and rename the `env.example` to `env.local` & update you enviroment variables in all the apps.
 
-   ```js
+   ```env
    API_KEY = YOUR_API_KEY
    ```
 
-3. Run the following commands to start the development server
+1. Run the following commands to start the development server
 
    ```sh copy
    pnpm dev
    ```
-The NextJs application will start at port 3000.
+
+   The Next Js application will start at port 3000.
 
 ### To Initialize The Backend
 
@@ -81,7 +142,7 @@ The NextJs application will start at port 3000.
 
 3. Copy and rename the `env.example` to `env.local` & update you enviroment variables in all the apps. (including `PORT` & `DATABASE_URL`)
 
-   ```js
+   ```env
    API_KEY = YOUR_API_KEY
    ```
 
@@ -91,53 +152,55 @@ The NextJs application will start at port 3000.
     pnpm dev
    ```
 
-## Apps
+   The API will start on specified port (4000), you can do a check by running `curl http://localhost:4000/healthcheck`
 
-| Apps     | Description                              |
-| -------- | ---------------------------------------- |
-| api      | API Server for the infrastructure     |
-| frontend | Frontend Nextjs app for end users        |
+## Things to be done
 
-
-## Getting Started
-
-- [X] General
-    - [X] The application must feature user authentication, allowing organizations to register, log in, and manage their accounts.
-    - [X] Organizations should be able to create, edit, and delete custom forms.
-    - [X] The application should support various form field types, including text inputs, dropdown menus, checkboxes, and radio buttons.
-    - [X] Forms must be dynamically rendered based on the organization's design specifications.
-    - [X] All form data should be securely stored in a MySQL database, with each submission linked to its respective organization.
-- [X] Backend (Express.js)
-    - [X] Initialize an Express server to manage API requests.
-    - [X] Implement routes for user authentication (signup, login, logout) and form management (creation, editing, deletion).
-    - [X] Integrate the server with a MySQL database using the mysql2 package.
-    - [X] Secure user authentication using JWT or session-based methods. Ensure passwords are securely hashed.
-    - [X] Develop endpoints for form management, including creation, updating, and deletion.
-    - [X] Implement dynamic form rendering based on database-stored form designs.
-    - [X] Handle form submissions securely, storing data in the MySQL database.
-- [X] Frontend (React)
-    - [X] Initialize a new React project for the application's frontend.
-    - [X] Create components for user authentication (signup, login, logout).
-    - [X] Implement robust form validation and error handling.
-    - [X] Develop an interface for organizations to manage their forms.
-    - [X] Design components for creating and editing form fields and forms.
-    - [X] Dynamically render forms for user submission based on backend specifications.Database (MySQL)
-    - [X] Design and implement tables for users, organizations, forms, and form fields.
-    - [X] Establish relationships between tables to reflect the organizational structure and form hierarchy.
-- [X]Security and Validation
-    - [X] Implement frontend and backend validation to ensure data integrity.
-    - [X] Sanitize all inputs to prevent SQL injection and other common web vulnerabilities.
-    - [X] Employ CSRF protection measures.
-- [X] Documentation
-    - [X] Provide detailed documentation on setting up and running the application, including environment setup and server start instructions.
-    - [X] Document the API endpoints and their usage.
+- [x] General
+  - [x] The application must feature user authentication, allowing organizations to register, log in, and manage their accounts.
+  - [x] Organizations should be able to create, edit, and delete custom forms.
+  - [x] The application should support various form field types, including text inputs, dropdown menus, checkboxes, and radio buttons.
+  - [x] Forms must be dynamically rendered based on the organization's design specifications.
+  - [x] All form data should be securely stored in a MySQL database, with each submission linked to its respective organization.
+- [x] Backend (Express.js)
+  - [x] Initialize an Express server to manage API requests.
+  - [x] Implement routes for user authentication (signup, login, logout) and form management (creation, editing, deletion).
+  - [x] Integrate the server with a MySQL database using the mysql2 package.
+  - [x] Secure user authentication using JWT or session-based methods. Ensure passwords are securely hashed.
+  - [x] Develop endpoints for form management, including creation, updating, and deletion.
+  - [x] Implement dynamic form rendering based on database-stored form designs.
+  - [x] Handle form submissions securely, storing data in the MySQL database.
+- [x] Frontend (React)
+  - [x] Initialize a new React project for the application's frontend.
+  - [x] Create components for user authentication (signup, login, logout).
+  - [x] Implement robust form validation and error handling.
+  - [x] Develop an interface for organizations to manage their forms.
+  - [x] Design components for creating and editing form fields and forms.
+  - [x] Dynamically render forms for user submission based on backend specifications.Database (MySQL)
+  - [x] Design and implement tables for users, organizations, forms, and form fields.
+  - [x] Establish relationships between tables to reflect the organizational structure and form hierarchy.
+- [x] Security and Validation
+  - [x] Implement frontend and backend validation to ensure data integrity.
+  - [x] Sanitize all inputs to prevent SQL injection and other common web vulnerabilities.
+  - [x] Employ CSRF protection measures.
+- [x] Documentation
+  - [x] Provide detailed documentation on setting up and running the application, including environment setup and server start instructions.
+  - [x] Document the API endpoints and their usage.
 - [ ] Testing
-    - [ ] Write unit tests for critical components of the application.
-    - [ ] Perform integration testing to ensure seamless frontend and backend interaction.
+  - [ ] Write unit tests for critical components of the application.
+  - [ ] Perform integration testing to ensure seamless frontend and backend interaction.
 - [ ] CI/CD
-    - [X] Implement Continuous Integration and Continuous Deployment using GitHub Actions.
-    - [ ] Ensure automated tests are part of the CI/CD pipeline.
-    - [X] Document the CI/CD process, including setup and usage instructions.
+  - [x] Implement Continuous Integration and Continuous Deployment using GitHub Actions.
+  - [ ] Ensure automated tests are part of the CI/CD pipeline.
+  - [x] Document the CI/CD process, including setup and usage instructions.
+
+### Further Improvements
+
+- [ ] Swap out MySQL infavour of PostgreSQL
+- [ ] Rewrite all data fetching logic with reusable react-query functions
+- [ ] Use Orval to generate restful client using the api.
+- [ ] Converting project into a turbo repo and share re-usable logic and types.
+- [ ]
 
 ## Contributing
 

@@ -5,10 +5,6 @@ on:
     # paths:
     #   - frontend/**
 
-defaults:
-  run:
-    working-directory: ./frontend
-
 jobs:
   build:
     name: Lint and Typecheck Frontend
@@ -19,39 +15,38 @@ jobs:
         node: [18.x, 20.x]
         os: [ubuntu-latest]
 
+    defaults:
+      run:
+        working-directory: ./frontend
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - name: Use Node ${{ runner.node }}
-        uses: actions/setup-node@v3
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ runner.node }}
-          cache: "pnpm"
+          node-version: ${{ matrix.node }}
+        #   cache: "pnpm"
+        #   cache-dependency-path: frontend/package-lock.json
 
       - name: Install deps (with cache)
-        run: |
-          cd fronted
-          pnpm install
+        run: pnpm install
 
       - name: Next.js cache
         uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-nextjs
+          key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-nextjs
 
       - name: Lint
-        run: |
-          cd fronted
-          pnpm lint
+        run: pnpm lint
 
       - name: Typecheck
-        run: |
-          cd fronted
-          pnpm typecheck
+        run: pnpm typecheck
