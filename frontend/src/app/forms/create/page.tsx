@@ -1,6 +1,6 @@
-import CreateForm from "../CreateForm";
+import CreateForm from "@/components/forms/create-form";
 
 const CreateFormPage = () => {
-  return <CreateForm />;
+	return <CreateForm />;
 };
 export default CreateFormPage;

@@ -1,14 +1,14 @@
 import { getUserForms } from "@/actions/getUserForms";
-import FormsList from "@/app/forms/FormsList";
+import FormList from "@/components/cards/form-list";
 
 const ViewFormPage = async () => {
-  const forms = await getUserForms();
+	const forms = await getUserForms();
 
-  return (
-    <>
-      <FormsList forms={forms} />
-    </>
-  );
+	if (forms.length === 0) {
+		return <div className="grid place-items-center h-[10vh]">No forms found</div>;
+	}
+
+	return <FormList forms={forms} />;
 };
 
 export default ViewFormPage;

@@ -3,37 +3,33 @@ import ResultsDisplay from "./ResultsDisplay";
 import { getUserForms } from "@/actions/getUserForms";
 
 const page = async ({
-  searchParams,
+	searchParams,
 }: {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
+	searchParams: {
+		[key: string]: string | string[] | undefined;
+	};
 }) => {
-  const userForms = await getUserForms();
+	const userForms = await getUserForms();
 
-  if (!userForms?.length || userForms.length === 0) {
-    return <div>No forms found</div>;
-  }
+	if (!userForms?.length || userForms.length === 0) {
+		return <div className="grid place-items-center h-[10vh]">No forms found</div>;
+	}
 
-  const selectOptions = userForms.map((form: { name: string; id: string }) => {
-    return {
-      label: form.name,
-      value: form.id,
-    };
-  });
+	const selectOptions = userForms.map((form: { name: string; id: string }) => {
+		return {
+			label: form.name,
+			value: form.id,
+		};
+	});
 
-  return (
-    <div>
-      <FormsPicker options={selectOptions} />
-      <ResultsDisplay
-        formId={
-          searchParams?.formId
-            ? (searchParams.formId as string)
-            : userForms[0].id
-        }
-      />
-    </div>
-  );
+	return (
+		<div>
+			<FormsPicker options={selectOptions} />
+			<ResultsDisplay
+				formId={searchParams?.formId ? (searchParams.formId as string) : userForms[0].id}
+			/>
+		</div>
+	);
 };
 
 export default page;

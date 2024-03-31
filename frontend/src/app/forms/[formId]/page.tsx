@@ -1,26 +1,26 @@
-import Form from "../Form";
+import Form from "@/components/forms/collection-form";
 
 const page = async ({
-  params,
+	params,
 }: {
-  params: {
-    formId: string;
-  };
+	params: {
+		formId: string;
+	};
 }) => {
-  const formId = params.formId;
+	const formId = params.formId;
 
-  if (!formId) {
-    return <div>Form not found</div>;
-  }
+	if (!formId) {
+		return <div>Form not found</div>;
+	}
 
-  const form = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/form/${formId}`
-  ).then((res) => res.json());
+	const form = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/form/${formId}`).then(
+		res => res.json()
+	);
 
-  if (!form) {
-    return <div>Form not found</div>;
-  }
+	if (!form) {
+		return <div>Form not found</div>;
+	}
 
-  return <Form form={form} />;
+	return <Form form={form} />;
 };
 export default page;
