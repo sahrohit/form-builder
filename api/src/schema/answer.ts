@@ -14,13 +14,13 @@ export const answers = mysqlTable("answers", {
 	value: text("value"),
 	questionId: varchar("question_id", {
 		length: 128,
-	}),
+	}).references(() => questions.id, { onDelete: "cascade" }),
 	formSubmissionId: varchar("form_submission_id", {
 		length: 128,
 	}),
 	fieldOptionsId: varchar("field_options_id", {
 		length: 128,
-	}).references(() => fieldOptions.id),
+	}).references(() => fieldOptions.id, { onDelete: "cascade" }),
 });
 
 export const answersRelations = relations(answers, ({ one }) => ({

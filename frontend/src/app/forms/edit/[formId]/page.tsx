@@ -44,6 +44,7 @@ const EditFormPage = async ({
 				</div>
 				<CreateForm
 					initialValues={{
+						id: form.id,
 						name: form.name,
 						description: form.name,
 						answers: form.questions,

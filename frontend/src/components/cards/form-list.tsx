@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Card,
 	CardDescription,
@@ -7,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { toast } from "sonner";
+import { deleteForm } from "@/actions/deleteForm";
 
 type Props = {
 	forms: {
@@ -25,10 +29,23 @@ const FormList = ({ forms }: Props) => {
 						<CardTitle>{form.name}</CardTitle>
 						<CardDescription>{form.description}</CardDescription>
 					</CardHeader>
-					<CardFooter>
+					<CardFooter className="flex flex-row gap-3">
 						<Link className="w-full" href={`/forms/edit/${form.id}`}>
 							<Button className="w-full">View</Button>
 						</Link>
+						<Button
+							className="w-full"
+							variant="destructive"
+							onClick={() =>
+								toast.promise(deleteForm({ id: form.id }), {
+									loading: "Deleting form...",
+									success: "Form deleted",
+									error: "Failed to delete form",
+								})
+							}
+						>
+							Delete
+						</Button>
 					</CardFooter>
 				</Card>
 			))}

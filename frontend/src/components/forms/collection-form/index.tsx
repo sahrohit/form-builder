@@ -71,13 +71,13 @@ const Form = (props: { form: Form }) => {
 	};
 
 	return (
-		<div className="text-center">
+		<div className="text-center w-full">
 			<h1 className="text-lg font-bold py-3">{props.form.name}</h1>
 			<h3 className="text-md">{props.form.description}</h3>
 			<FormComponent {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="grid w-full max-w-3xl items-center gap-6 my-4 text-left"
+					className="grid w-full max-w-3xl items-center gap-6 my-4 text-left mx-auto"
 				>
 					{props.form.questions.map((question: QuestionWithOptionsModel, index: number) => {
 						return (
@@ -103,7 +103,9 @@ const Form = (props: { form: Form }) => {
 							/>
 						);
 					})}
-					<Button type="submit">Submit</Button>
+					<Button type="submit" disabled={form.formState.isSubmitting}>
+						Submit
+					</Button>
 				</form>
 			</FormComponent>
 		</div>

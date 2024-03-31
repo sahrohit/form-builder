@@ -4,14 +4,22 @@ import { CreateFormValues } from "@/components/forms/create-form/options-selecto
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export const createForm = async ({ answers, description, name }: CreateFormValues) => {
+export const updateForm = async ({
+	id,
+	answers,
+	description,
+	name,
+}: CreateFormValues & {
+	id: string;
+}) => {
 	const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/form", {
-		method: "POST",
+		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${cookies().get("session-token")?.value}`,
 		},
 		body: JSON.stringify({
+			id,
 			name,
 			description,
 			questions: answers,

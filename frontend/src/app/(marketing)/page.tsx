@@ -59,7 +59,7 @@ const Home = async () => {
 						</li>
 						<li className="flex flex-col items-center space-y-4 relative">
 							<Image
-								src="/images/app/demo4.png"
+								src="/images/app/demo2.png"
 								width="250"
 								height="250"
 								alt="update the form"

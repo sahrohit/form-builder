@@ -200,7 +200,6 @@ To get a local copy up and running follow these simple example steps.
 - [ ] Rewrite all data fetching logic with reusable react-query functions
 - [ ] Use Orval to generate restful client using the api.
 - [ ] Converting project into a turbo repo and share re-usable logic and types.
-- [ ]
 
 ## Contributing
 
@@ -214,8 +213,6 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-<!-- LICENSE -->
 
 ## License
 

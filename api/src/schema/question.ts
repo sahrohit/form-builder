@@ -26,7 +26,7 @@ export const questions = mysqlTable("questions", {
 	}),
 	formId: varchar("form_id", {
 		length: 128,
-	}),
+	}).references(() => forms.id, { onDelete: "cascade" }),
 });
 
 export const questionsRelations = relations(questions, ({ one, many }) => ({

@@ -26,11 +26,14 @@ import { toast } from "sonner";
 import OptionsSelector from "@/components/forms/create-form/options-selector";
 import FormPublish from "@/components/modals/form-publish";
 import { useState } from "react";
+import { updateForm } from "@/actions/updateForm";
 
 const CreateForm = ({
 	initialValues,
 }: {
-	initialValues?: CreateFormValues;
+	initialValues?: CreateFormValues & {
+		id: string;
+	};
 }) => {
 	const [formId, setFormId] = useState("");
 	const [publishOpen, setPublishOpen] = useState(false);
@@ -69,22 +72,45 @@ const CreateForm = ({
 			return a;
 		});
 
-		toast.promise(
-			createForm({
-				name: values.name,
-				description: values.description,
-				answers: updatedValues,
-			}),
-			{
-				loading: "Creating Form...",
-				success: res => {
-					setFormId(res.formId);
-					setPublishOpen(true);
-					return "Form created successfully!";
-				},
-				error: "Failed to create form",
-			}
-		);
+		console.log("Values", values);
+		console.log("Id", initialValues?.id ?? "NO ID");
+
+		if (initialValues) {
+			toast.promise(
+				updateForm({
+					id: initialValues.id,
+					name: values.name,
+					description: values.description,
+					answers: updatedValues,
+				}),
+				{
+					loading: "Creating Form...",
+					success: res => {
+						setFormId(res.formId);
+						setPublishOpen(true);
+						return "Form created successfully!";
+					},
+					error: "Failed to create form",
+				}
+			);
+		} else {
+			toast.promise(
+				createForm({
+					name: values.name,
+					description: values.description,
+					answers: updatedValues,
+				}),
+				{
+					loading: "Creating Form...",
+					success: res => {
+						setFormId(res.formId);
+						setPublishOpen(true);
+						return "Form created successfully!";
+					},
+					error: "Failed to create form",
+				}
+			);
+		}
 	};
 
 	return (

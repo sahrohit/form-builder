@@ -12,7 +12,7 @@ export const formSubmissions = mysqlTable("form_submissions", {
 		.$defaultFn(() => createId()),
 	formId: varchar("form_id", {
 		length: 128,
-	}),
+	}).references(() => forms.id, { onDelete: "cascade" }),
 });
 
 export const formSubmissionsRelations = relations(formSubmissions, ({ one, many }) => ({

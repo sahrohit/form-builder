@@ -12,7 +12,9 @@ export const fieldOptions = mysqlTable("field_options", {
 		.$defaultFn(() => createId()),
 	text: text("text"),
 	value: text("value"),
-	questionId: varchar("question_id", { length: 128 }),
+	questionId: varchar("question_id", { length: 128 }).references(() => questions.id, {
+		onDelete: "cascade",
+	}),
 });
 
 export const fieldOptionsRelations = relations(fieldOptions, ({ one }) => ({

@@ -51,6 +51,26 @@ export const addNewFormSchema = z.object({
 	}),
 });
 
+export const updateFormSchema = z.object({
+	body: z.object({
+		id: z.string(),
+		name: z.string(),
+		description: z.string(),
+		questions: z.array(
+			z.object({
+				text: z.string(),
+				fieldType: z.enum(fieldTypeEnum),
+				fieldOptions: z.array(
+					insertFieldOptionsSchema.pick({
+						text: true,
+						value: true,
+					})
+				),
+			})
+		),
+	}),
+});
+
 export const deleteFormSchema = z.object({
 	body: selectFormSchema.pick({
 		id: true,
