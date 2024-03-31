@@ -36,7 +36,9 @@ jobs:
           cache: "pnpm"
 
       - name: Install deps (with cache)
-        run: pnpm install
+        run: |
+          cd fronted
+          pnpm install
 
       - name: Next.js cache
         uses: actions/cache@v3
@@ -45,7 +47,11 @@ jobs:
           key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-nextjs
 
       - name: Lint
-        run: pnpm lint
+        run: |
+          cd fronted
+          pnpm lint
 
       - name: Typecheck
-        run: pnpm typecheck
+        run: |
+          cd fronted
+          pnpm typecheck
