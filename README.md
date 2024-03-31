@@ -65,9 +65,9 @@ api
 
 ### Utilities
 
-Biome.js is used for liniting and fomratting of code, which is a better and alternative as compared to prettier and eslint.
+Biome.js is used for liniting and fomratting of code, which is a better alternative to prettier and eslint.
 
-Github Actions is used to do build, typecheck and lint check after each commit.
+Github Actions is used to do build, typecheck and lint check after each push to the origin.
 
 PNPM is used instead of NPM for better DX.
 
@@ -153,6 +153,31 @@ To get a local copy up and running follow these simple example steps.
    ```
 
    The API will start on specified port (4000), you can do a check by running `curl http://localhost:4000/healthcheck`
+
+### My Keys (to make it easier for evaluation)
+
+`/api/.env`
+
+```env copy
+# Port for running the API Server
+PORT=4000
+
+# MySQL Database URL (will close the service after evaluation)
+DATABASE_URL=mysql://avnadmin:AVNS_hF9Sct75Wu2lS0Eyl5z@mysql-database-my-form-builder.a.aivencloud.com:11832/defaultdb
+
+# JWT Secret for Authentication
+JWT_SECRET=my_jwt_secret
+```
+
+`frontend/.env`
+
+```env copy
+# API URL
+NEXT_PUBLIC_API_URL=http://localhost:4000
+
+# Next App URL
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 
 ## Things to be done
 

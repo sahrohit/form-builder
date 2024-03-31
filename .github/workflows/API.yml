@@ -2,8 +2,8 @@ name: API
 on:
   push:
     branches: [main]
-    # paths:
-    #   - api/**
+    paths:
+      - api/**
 
 jobs:
   build:
